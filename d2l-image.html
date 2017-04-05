@@ -27,21 +27,27 @@
 	Polymer({
 		is: 'd2l-image',
 		properties: {
+			imageUrl: {
+				type: String,
+				value: null
+			},
+			token: String,
 			_authorization: String,
 			_headers: String
 		},
+		observers: [
+			'_onImageUrlChange( imageUrl, token )'
+		],
 		behaviors: [
 			window.D2L.Hypermedia.OrganizationHMBehavior,
 			window.D2L.Hypermedia.HMConstantsBehavior
 		],
-
-		getProfileImage: function( imageUrl, token ) {
-			if (token){
-				this._authorization = 'Bearer ' + token;
+		_onImageUrlChange: function(){
+			if (this.token){
+				this._authorization = 'Bearer ' + this.token;
 				this._headers = {
 					Authorization: this._authorization,
 				};
-				this.$.imageRequest.url = imageUrl;
 				this.$.imageRequest.generateRequest();
 			}
 		},
