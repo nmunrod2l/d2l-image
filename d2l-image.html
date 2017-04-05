@@ -32,7 +32,6 @@
 				value: null
 			},
 			token: String,
-			_authorization: String,
 			_headers: String
 		},
 		observers: [
@@ -44,9 +43,8 @@
 		],
 		_onImageUrlChange: function(){
 			if (this.token){
-				this._authorization = 'Bearer ' + this.token;
 				this._headers = {
-					Authorization: this._authorization,
+					Authorization: 'Bearer ' + this.token
 				};
 				this.$.imageRequest.generateRequest();
 			}
