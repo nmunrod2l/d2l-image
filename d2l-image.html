@@ -1,12 +1,25 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-ajax/iron-ajax.html">
+<link rel="import" href="../d2l-organization-hm-behavior/d2l-organization-hm-behavior.html">
+<link rel="import" href="../d2l-hm-constants-behavior/d2l-hm-constants-behavior.html">
+<link rel="import" href="../d2l-siren-parser/d2l-siren-parser.html">
 
-<dom-module id="d2l-tile">
+<dom-module id="d2l-image">
 	<template>
 		<style>
 			:host{
 				display: block;
 			}
+
+			img{
+				width:100%;
+				height: 100%;
+			}
 		</style>
+
+		<iron-ajax id="imageRequest" url="[[imageUrl]]" headers="[[_headers]]" on-iron-ajax-response="_onImageResponse" handle-as="arraybuffer" verbose="true"></iron-ajax>
+
+		<img id="image"/>
 	</template>
 	<script>
 	'use strict';
@@ -14,7 +27,37 @@
 	Polymer({
 		is: 'd2l-image',
 		properties: {
+			imageUrl: {
+				type: String,
+				value: null
+			},
+			token: String,
+			_authorization: String,
+			_headers: String
+		},
+		observers: [
+			'_onImageUrlChange( imageUrl, token )'
+		],
+		behaviors: [
+			window.D2L.Hypermedia.OrganizationHMBehavior,
+			window.D2L.Hypermedia.HMConstantsBehavior
+		],
+		_onImageUrlChange: function(){
+			if (this.token){
+				this._authorization = 'Bearer ' + this.token;
+				this._headers = {
+					Authorization: this._authorization,
+				};
+				this.$.imageRequest.generateRequest();
+			}
+		},
 
+		_onImageResponse: function(response) {
+			var data = new Uint8Array(response.detail.response);
+			var rawData = String.fromCharCode.apply(null, data);
+			var base64 = btoa(rawData);
+			var dataUrl = "data:image/png;base64," + base64;
+			this.$.image.src = dataUrl;
 		}
 	});
 	</script>
