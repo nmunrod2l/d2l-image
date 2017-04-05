@@ -1,6 +1,6 @@
-# \<d2l-image\>
+# d2l-image
 
-A [Polymer](https://www.polymer-project.org/)-based web component for images requiring authentication
+A [Polymer](https://www.polymer-project.org/)-based web component for displaying images that require authentication
 
 ## Coding styles
 
