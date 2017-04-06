@@ -41,7 +41,7 @@
 			window.D2L.Hypermedia.OrganizationHMBehavior,
 			window.D2L.Hypermedia.HMConstantsBehavior
 		],
-		_onImageUrlChange: function(){
+		_onImageUrlChange: function() {
 			if (this.token) {
 				this._headers = {
 					Authorization: 'Bearer ' + this.token
@@ -54,7 +54,7 @@
 			var data = new Uint8Array(response.detail.response);
 			var rawData = String.fromCharCode.apply(null, data);
 			var base64 = btoa(rawData);
-			var dataUrl = "data:image/png;base64," + base64;
+			var dataUrl = 'data:image/png;base64,' + base64;
 			this.$.image.src = dataUrl;
 		}
 	});
