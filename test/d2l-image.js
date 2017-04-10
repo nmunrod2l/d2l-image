@@ -57,5 +57,19 @@ describe('<d2l-image>', function() {
 			fakeTimer.tick(1);
 			expect(sent).to.equal(true);
 		});
+
+		it('should update image src attribute', function() {
+
+			var response = {
+				detail: {
+					response: new ArrayBuffer(8)
+				}
+			};
+
+			widget = fixture('d2l-image-fixture');
+
+			widget._onImageResponse(response);
+			expect(widget.$.image.src);
+		});
 	});
 });
