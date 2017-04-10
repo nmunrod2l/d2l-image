@@ -3,12 +3,14 @@
 'use strict';
 
 describe('<d2l-image>', function() {
-	var server,
+	var fakeTimer,
+		server,
 		widget;
 
 	beforeEach(function() {
 		server = sinon.fakeServer.create();
 		server.respondImmediately = true;
+		fakeTimer = sinon.useFakeTimers();
 		widget = fixture('d2l-image-fixture');
 	});
 
@@ -23,6 +25,7 @@ describe('<d2l-image>', function() {
 	describe('Hypermedia calls', function() {
 		it('should not send a request without an auth token', function() {
 			var sent = false;
+
 			server.respondWith(
 				'GET',
 				widget.imageUrl,
@@ -30,25 +33,29 @@ describe('<d2l-image>', function() {
 					sent = true;
 					req.respond(200);
 				});
-			widget._onImageUrlChange();
+
+			widget = fixture('d2l-image-fixture');
+
+			fakeTimer.tick(1);
 			expect(sent).to.equal(false);
 		});
 
-		it('should send a request with an auth token', function(done) {
-			var spy = sinon.spy(widget, '_onImageUrlChange');
-			var authToken = 'My token';
-			widget.token = authToken;
+		it('should send a request with an auth token', function() {
+			var sent = false;
+
 			server.respondWith(
 				'GET',
 				widget.imageUrl,
 				function(req) {
-					expect(req.requestHeaders['authorization']).to.equal('Bearer ' + authToken);
+					expect(req.requestHeaders['authorization']).to.equal('Bearer ' + 'My Token');
 					req.respond(200);
-					done();
+					sent = true;
 				});
 
-			widget.imageUrl = 'test123';
-			expect(spy.called);
+			widget = fixture('d2l-image-fixture-populated');
+
+			fakeTimer.tick(1);
+			expect(sent).to.equal(true);
 		});
 	});
 });
