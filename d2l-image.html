@@ -18,7 +18,7 @@
 
 		<iron-ajax id="imageRequest" url="[[imageUrl]]" headers="[[_headers]]" on-iron-ajax-response="_onImageResponse" handle-as="arraybuffer" verbose="true"></iron-ajax>
 
-		<img id="image"/>
+		<img id="image" alt="{{alternateText}}"/>
 	</template>
 	<script>
 	'use strict';
@@ -26,6 +26,7 @@
 	Polymer({
 		is: 'd2l-image',
 		properties: {
+			alternateText: String,
 			imageUrl: {
 				type: String,
 				value: null
@@ -50,11 +51,15 @@
 		},
 
 		_onImageResponse: function(response) {
-			var data = new Uint8Array(response.detail.response);
-			var rawData = String.fromCharCode.apply(null, data);
-			var base64 = window.btoa(rawData);
-			var dataUrl = 'data:image/png;base64,' + base64;
-			this.$.image.src = dataUrl;
+			if (response.detail.status === 200) {
+				var data = new Uint8Array(response.detail.response);
+				var rawData = String.fromCharCode.apply(null, data);
+				var base64 = window.btoa(rawData);
+				var dataUrl = 'data:image/png;base64,' + base64;
+				this.$.image.src = dataUrl;
+			} else {
+				this.fire('d2l-image-failed-to-load', response);
+			}
 		}
 	});
 	</script>
