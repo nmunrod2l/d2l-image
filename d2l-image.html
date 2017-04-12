@@ -16,7 +16,7 @@
 			}
 		</style>
 
-		<iron-ajax id="imageRequest" url="[[imageUrl]]" headers="[[_headers]]" on-iron-ajax-response="_onImageResponse" handle-as="arraybuffer" verbose="true"></iron-ajax>
+		<iron-ajax id="imageRequest" url="[[imageUrl]]" headers="[[_headers]]" on-iron-ajax-response="_onImageResponse" on-iron-ajax-error="_onImageResponse" handle-as="arraybuffer"></iron-ajax>
 
 		<img id="image" alt="{{alternateText}}"/>
 	</template>
@@ -51,6 +51,7 @@
 		},
 
 		_onImageResponse: function(response) {
+			console.log('response: ', response);
 			if (response.detail.status === 200) {
 				var data = new Uint8Array(response.detail.response);
 				var rawData = String.fromCharCode.apply(null, data);
