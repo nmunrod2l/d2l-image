@@ -51,7 +51,6 @@
 		},
 
 		_onImageResponse: function(response) {
-			console.log('response: ', response);
 			if (response.detail.status === 200) {
 				var data = new Uint8Array(response.detail.response);
 				var rawData = String.fromCharCode.apply(null, data);
