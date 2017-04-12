@@ -1,0 +1,17 @@
+{
+  "name": "d2l-image",
+  "description": "A webcomponent for images requiring authentication",
+  "main": "d2l-image.html",
+  "moduleType": [
+    "polymer"
+  ],
+  "dependencies": {
+    "d2l-hm-constants-behavior": "git://github.com/Brightspace/d2l-hm-constants-behavior.git#^1.0.0",
+    "d2l-organization-hm-behavior": "git://github.com/Brightspace/organization-hm-behavior.git#^1.0.0",
+    "iron-ajax": "^1.4.3"
+  },
+  "devDependencies": {
+    "web-component-tester": "^4.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  }
+}
