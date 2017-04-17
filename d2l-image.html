@@ -47,6 +47,8 @@
 					Authorization: 'Bearer ' + this.token
 				};
 				this.$.imageRequest.generateRequest();
+			} else {
+				this.$.image.src = this.imageUrl;
 			}
 		},
 
