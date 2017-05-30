@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "postinstall": "bower install",
-    "test": "npm run test:lint:js && npm run test:lint:wc && wct",
-    "test:lint:js": "./node_modules/.bin/eslint --ext .js,.html .",
-    "test:lint:wc": "polylint --no-recursion",
-    "test:no-lint": "wct -p"
+    "test": "npm run test:lint:js && npm run test:lint:wc && npm run test:unit",
+    "test:lint:js": "eslint --ext .js,.html . test/",
+    "test:lint:wc": "polymer lint -i d2l-image.html",
+    "test:unit": "polymer test"
   },
   "homepage": "https://github.com/Brightspace/d2l-image#readme",
   "repository": {
@@ -27,9 +27,7 @@
     "bower": "^1.8.0",
     "eslint": "^3.17.0",
     "eslint-config-brightspace": "^0.2.1",
-    "eslint-config-google": "^0.7.0",
     "eslint-plugin-html": "^1.7.0",
-    "polylint": "^2.10.4",
-    "web-component-tester": "^4.2.2"
+    "polymer-cli": "^1.1.0"
   }
 }
