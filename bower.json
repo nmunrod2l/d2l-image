@@ -6,12 +6,10 @@
     "polymer"
   ],
   "dependencies": {
-    "d2l-hm-constants-behavior": "git://github.com/Brightspace/d2l-hm-constants-behavior.git#^1.0.0",
-    "d2l-organization-hm-behavior": "git://github.com/Brightspace/organization-hm-behavior.git#^1.0.0",
-    "iron-ajax": "^1.4.3"
+    "iron-ajax": "^1.4.3",
+    "polymer": "^1.8.0"
   },
   "devDependencies": {
-    "web-component-tester": "^4.0.0",
-    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+    "web-component-tester": "^6.0.0"
   }
 }
