@@ -59,7 +59,15 @@
 		_onImageResponse: function(response) {
 			if (response.detail.status === 200) {
 				var data = new Uint8Array(response.detail.response);
-				var rawData = String.fromCharCode.apply(null, data);
+				var rawData = '';
+				var position = 0;
+				var chunkSize = 5000;
+				var chunkArray;
+				while (position < data.length) {
+					chunkArray = data.subarray(position, position + chunkSize);
+					rawData += String.fromCharCode.apply(null, chunkArray);
+					position += chunkSize;
+				}
 				var base64 = window.btoa(rawData);
 				var dataUrl = 'data:image/png;base64,' + base64;
 				this.$.image.src = dataUrl;
