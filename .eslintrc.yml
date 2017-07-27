@@ -1,2 +1,4 @@
 extends:
   - brightspace/wct-config
+globals:
+  base64js: true
