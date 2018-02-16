@@ -3,11 +3,11 @@
   "description": "A Polymer-based web component for images requiring authentication",
   "private": true,
   "scripts": {
-    "postinstall": "bower install",
-    "test": "npm run test:lint:js && npm run test:lint:wc && npm run test:unit",
-    "test:lint:js": "eslint --ext .js,.html . test/",
-    "test:lint:wc": "polymer lint -i d2l-image.html",
-    "test:unit": "polymer test"
+    "postinstall": "polymer install --variants",
+    "test": "npm run lint && polymer test --skip-plugin sauce",
+    "lint": "npm run lint:js && npm run lint:wc",
+    "lint:js": "eslint *.html",
+    "lint:wc": "polymer lint -i d2l-image.html"
   },
   "homepage": "https://github.com/Brightspace/d2l-image#readme",
   "repository": {
@@ -24,10 +24,9 @@
   "author": "D2L Corporation",
   "license": "Apache-2.0",
   "devDependencies": {
-    "bower": "^1.8.0",
-    "eslint": "^3.17.0",
-    "eslint-config-brightspace": "^0.2.1",
-    "eslint-plugin-html": "^1.7.0",
-    "polymer-cli": "^1.1.0"
+    "eslint": "^4.15.0",
+    "eslint-config-brightspace": "^0.4.0",
+    "eslint-plugin-html": "^4.0.1",
+    "polymer-cli": "^1.5.7"
   }
 }
