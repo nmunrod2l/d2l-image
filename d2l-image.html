@@ -1,4 +1,4 @@
-<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="../iron-ajax/iron-ajax.html">
 
 <dom-module id="d2l-image">
@@ -26,26 +26,28 @@
 		<img id="image" alt="{{alternateText}}"/>
 	</template>
 	<script>
-	'use strict';
+	class D2LImage extends Polymer.Element {
+		static get is() { return 'd2l-image'; }
 
-	Polymer({
-		is: 'd2l-image',
+		static get properties() {
+			return {
+				alternateText: String,
+				imageUrl: {
+					type: String,
+					value: null
+				},
+				token: String,
+				_headers: String
+			};
+		}
 
-		properties: {
-			alternateText: String,
-			imageUrl: {
-				type: String,
-				value: null
-			},
-			token: String,
-			_headers: String
-		},
+		static get observers() {
+			return [
+				'_onImageUrlChange( imageUrl, token )'
+			];
+		}
 
-		observers: [
-			'_onImageUrlChange( imageUrl, token )'
-		],
-
-		_onImageUrlChange: function(imageUrl, token) {
+		_onImageUrlChange(imageUrl, token) {
 			if (imageUrl && token) {
 				this._headers = {
 					Authorization: 'Bearer ' + token
@@ -54,9 +56,9 @@
 			} else if (imageUrl) {
 				this.$.image.src = imageUrl;
 			}
-		},
+		}
 
-		_onImageResponse: function(response) {
+		_onImageResponse(response) {
 			if (response.detail.status === 200) {
 				if (this.$.image.src) {
 					URL.revokeObjectURL(this.$.image.src);
@@ -70,6 +72,8 @@
 				}));
 			}
 		}
-	});
+	}
+
+	customElements.define(D2LImage.is, D2LImage);
 	</script>
 </dom-module>
